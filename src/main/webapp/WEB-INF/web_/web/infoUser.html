@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/infoUser.css}">
+</head>
+
+<body th:style="'background-image: url('+@{/imgg/lod-bg-193635e8f73f6a4b37f78991e113e894.png}+');'">
+<img class="banner" th:src="@{/imgg/TapeBanner_2000x.png}" alt="">
+<div class="container">
+    <div class="row g-2">
+        <div class="col-8">
+            <div class="p-3 border bg-light flex">
+                <form th:action="@{/order}" th:object="${order}" method="post">
+                    <label for="username">User Name: </label>
+                    <input th:field="*{name}" placeholder="Enter your text..." id="username" class="input"  type="text">
+                    <label for="Address">Address : </label>
+                    <input th:field="*{address}" placeholder="Enter your text..." id="Address" class="input" type="text">
+                    <label  for="PhoneNumber">PhoneNumber : </label>
+                    <input th:field="*{phone}" placeholder="Enter your text..." id="PhoneNumber" class="input"  type="text">
+                    <label for="Note">Note : </label>
+                    <input th:field="*{note}" placeholder="Enter your text..." id="Note" class="input"  type="text">
+                    <button class="checkout"> Checkout</button>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="p-3 border bg-light">
+
+                <div class="container_cartitem" th:each="c:${session.cart}">
+                    <h1 class="text-heading">Cart</h1>
+                    <div class="cartitem">
+                        <div>
+                            <img th:src="@{|/upload/${c.product.image}|}">
+                        </div>
+                        <div>
+                            <p th:text="${c .product.getNameproduct()}"></p>
+                            <p>x <span th:text="${c.getQuantity()}"></span> = <span th:text="${c.product.price}"></span> </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cartitem_total">
+                    <p>Total</p>
+                    <p th:text="${session.cartTotalPrice}"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

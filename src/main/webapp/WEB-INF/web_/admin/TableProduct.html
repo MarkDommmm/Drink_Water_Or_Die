@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{/img/apple-icon.png}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>
+        MarkDommm
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+          name='viewport'/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link th:href="@{/css/material-dashboard.css}" rel="stylesheet"/>
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link th:href="@{/demo/demo.css}" rel="stylesheet"/>
+    <!--    Link JS BOOTRAPs-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <style>
+        .dark-edition .card {
+            background: #000;
+            border: 1px solid #ccc;
+        }
+
+        .dark-edition .sidebar .sidebar-background:after,
+        .dark-edition .sidebar {
+            background: black;
+
+        }
+
+        .fa-pen-to-square {
+            font-size: 17px;
+            margin-right: 10px;
+            color: #ccc;
+        }
+
+        .fa-trash-can {
+            font-size: 17px;
+            color: #ccc;
+        }
+
+        #video_navbar {
+            width: 137px;
+            margin-right: 254px;
+        }
+        .main-panel>.content {
+            margin-top: 56px;
+             padding: 0px 15px;
+            min-height: calc(100vh - 123px);
+        }
+        @media (min-width: 992px){
+            .navbar-expand-lg .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto;
+                height: 0;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="dark-edition"
+      th:style="'background-image: url('+@{/imgg/lod-bg-193635e8f73f6a4b37f78991e113e894.png}+');'">
+<div class="wrapper ">
+    <div class="sidebar" data-color="purple"
+         data-background-color="black"
+         th:data-image="@{/imgg/TapeBannerThang.png}" style="border-right: 1px solid #ccc">
+
+        <div class="logo">
+            <a href="/admin/home" class="simple-text logo-normal">
+            MarkDommm
+        </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item  ">
+                    <a class="nav-link" href="/admin/home">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/admin/users">
+                        <i class="material-icons">person</i>
+                        <p>Table Usesr</p>
+                    </a>
+                </li>
+                <li class="nav-item active ">
+                    <a class="nav-link" href="/admin/products">
+                        <i class="material-icons">content_paste</i>
+                        <p>Table Products</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/admin/order">
+                        <i class="material-icons">content_paste</i>
+                        <p>Table Orders</p>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+            <div class="container-fluid">
+                <div class="navbar-wrapper">
+                    <a class="navbar-brand" href="/admin/addProduct">
+                        <i class="fa-solid fa-plus"></i> Add Products</a>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end">
+
+                    <img id="video_navbar" src="https://www.goldenwolf.tv/frontend/img/creeper.gif?v1">
+                    <form method="post" th:action="@{/admin/searchname}" class="navbar-form" style="margin-right: 20px">
+                        <div class="input-group no-border">
+                            <input type="text" name="nameproduct" class="form-control" placeholder="Search...">
+                            <button type="submit" class="btn btn-default btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                    </form>
+                    <!--                    Login -->
+                    <ul class="navbar-nav">
+                        <div class="dropdown">
+                            <th:block th:if="${session.currentLogin}">
+                                <div class="dropdown">
+                                    <span th:text="'Hi! '+${session.currentLogin.username}"
+                                          style="color: #fff ; margin-right: 10px"></span>
+
+                                    <i class="fa-solid fa-user-ninja" id="dropdownMenuButton1"
+                                       data-bs-toggle="dropdown"></i>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                                        <li><a class="dropdown-item" href="/logout">LOG OUT!!!</a></li>
+                                    </ul>
+                                </div>
+                            </th:block>
+                            <th:block th:unless="${session.currentLogin}">
+                                <a href="/login" style="color: #fff">Login</a>
+                            </th:block>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary">
+                                <h4 class="card-title ">Table Products of Company</h4>
+                                <p class="card-category">Product import and export management</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Image/Video</th>
+                                        <th>
+                                            <a href="/admin/sortproduct">
+                                                <i class="fa-solid fa-arrow-down-9-1"></i>
+                                            </a>
+                                            Stock
+                                        </th>
+                                        <th>Price</th>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="v,loop:${list}">
+                                            <td th:text="${loop.count}"></td>
+                                            <td th:text="${v.nameproduct}"></td>
+
+                                            <td th:if="${v.video}">
+                                                <video th:src="@{|/upload/${v.video}|}" preload="auto" loop=""
+                                                       width="80px" autoplay muted></video>
+
+                                            </td>
+
+                                            <td th:unless="${v.video}">
+                                                <img th:src="@{|/upload/${v.image}|}" width="80px">
+                                            </td>
+
+                                            <td th:text="${v.stock}"></td>
+                                            <td class="text-primary" th:text="'$' + ${v.price}"></td>
+                                            <td th:text="${v.date}"></td>
+                                            <td th:text="${v.description}"></td>
+                                            <td>
+                                                <th:block th:if="${v.status == true}">
+                                                    <i class="fa-solid fa-check" style="color: greenyellow">
+                                                        Stocking</i>
+                                                </th:block>
+                                                <th:block th:unless="${v.status== true}">
+                                                    <i class="fa-solid fa-xmark" style="color: red"> out of stock</i>
+                                                </th:block>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{|/admin/update/${v.id}|}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <a onclick="return confirm('do you want to delete this item ?')"
+                                                   th:href="@{|/admin/delete/${v.id}|}">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="float-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                MarkDommm
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Licenses
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright float-right" id="date">
+                    , made with <i class="material-icons">favorite</i> by
+                    <a href="#">PhanHoangHieu</a> for a better web.
+                </div>
+            </div>
+        </footer>
+        <script>
+            const x = new Date().getFullYear();
+            let date = document.getElementById('date');
+            date.innerHTML = '&copy; ' + x + date.innerHTML;
+        </script>
+    </div>
+</div>
+
+
+<!--   Core JS Files   -->
+<script th:src="@{/js/core/jquery.min.js}"></script>
+<script th:src="@{/js/core/popper.min.js}"></script>
+<script th:src="@{/js/core/bootstrap-material-design.min.js}"></script>
+<script src="https://unpkg.com/default-passive-events"></script>
+<script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+
+<!-- Chartist JS -->
+<script th:src="@{/js/plugins/chartist.min.js}"></script>
+<!--  Notifications Plugin    -->
+<script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script th:src="@{/js/material-dashboard.js}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script th:src="@{/demo/demo.js}"></script>
+
+</body>
+
+</html>

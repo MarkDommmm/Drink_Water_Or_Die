@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .dropdown-menu {
+            left: -57px !important;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand"></a>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end">
+                    <th:block th:if="${session.currentLogin}">
+                        <div class="dropdown">
+                            <span th:text="'Hi! '+${session.currentLogin.username}" style="color: #fff ; margin-right: 10px"></span>
+
+                            <i class="fa-solid fa-user-ninja" id="dropdownMenuButton1" data-bs-toggle="dropdown"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="/logout">LOG OUT!!!</a></li>
+                        </ul>
+                </div>
+                    </th:block>
+                    <th:block th:unless="${session.currentLogin}">
+                        <a href="/login" style="color: #fff">Login</a>
+                    </th:block>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{css/login.css}">
+
+</head>
+
+<body th:style="'background-image: url('+@{/imgg/lod-bg-193635e8f73f6a4b37f78991e113e894.png}+');'">
+<img class="banner" th:src="@{/imgg/TapeBanner_2000x.png}" alt="">
+<div class="login-box">
+    <p id="form-title">Login</p>
+    <p th:text="${SuccessLogin}" style="font-size:15px;color: greenyellow"></p>
+    <p th:text="${Error}" style="font-size:15px;color: red"></p>
+    <br>
+    <!-- Login Form -->
+    <form id="login-form" th:action="@{/loginUser}" th:object="${users}" method="post">
+        <br>
+        <div class="user-box">
+            <input required="" name="" type="text" th:field="*{username}">
+            <label>UserName</label>
+        </div>
+        <div class="user-box">
+            <input required="" name="" type="password" th:field="*{password}">
+            <label>Password</label>
+        </div>
+        <button style="background-color: black; border: none" type="submit">
+            <a>
+                <span></span> <span></span>
+                <span></span> <span></span>
+                Submit
+            </a>
+        </button>
+    </form>
+    <!-- Signup Form -->
+    <form id="signup-form" class="signup-form was-validated" th:action="@{/signup}" th:object="${users}" method="post">
+        <div class="user-box">
+            <input required="" name="username" type="text" th:field="*{username}">
+            <label>UserName</label>
+        </div>
+        <div class="user-box">
+            <input required="" name="password" type="password" th:field="*{password}">
+            <label>Password</label>
+        </div>
+        <button style="background-color: black; border: none" type="submit">
+            <a>
+                <span></span> <span></span>
+                <span></span> <span></span>
+                Submit
+            </a>
+        </button>
+    </form>
+
+    <!-- Switch link -->
+    <p id="switch-link">Don't have an account? <a id="text_nav" href="#" class="a2">Sign up!</a></p>
+</div>
+<script>
+    // JavaScript code to handle the switch
+    const formTitle = document.getElementById('form-title');
+    const switchLink = document.getElementById('switch-link');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const text = document.getElementById('text_nav')
+    const body = document.body;
+    switchLink.addEventListener('click', () => {
+        if (formTitle.textContent === 'Login') {
+            formTitle.textContent = 'Sign Up';
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            body.classList.add('show-signup-form');
+            text.textContent = 'Login';
+
+        } else {
+            text.textContent = 'Sign up!'
+            formTitle.textContent = 'Login';
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            body.classList.remove('show-signup-form');
+        }
+    });
+
+</script>
+</body>
+
+</html>
